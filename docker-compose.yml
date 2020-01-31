@@ -19,14 +19,6 @@ services:
     image: "demoapp:B${BUILD_NUMBER}"
     build:
       context: .
-  integration:
-    depends_on:
-      - demoapp
-    image: "demoapp:test-B${BUILD_NUMBER}"
-    build:
-      context: .
-      dockerfile: Dockerfile.Integration
-    environment:
-      - TEAMCITY_PROJECT_NAME
+  
 volumes:
     dbdata:
