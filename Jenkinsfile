@@ -14,7 +14,7 @@ pipeline {
         }
       }
     }
-    stage('push Image') {
+    stage('Deploy Image') {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -23,6 +23,12 @@ pipeline {
         }
       }
     }
+	stage("Deploy to staging") {
+     steps {
+ 
+          sh "docker run -d --rm -p 8080:8080 --name mycontainer$BUILD_NUMBER ramanjulur/myrepo:$BUILD_NUMBER"
+     }
+  }
     stage('Remove Unused docker image') {
       steps{
         sh "docker rmi $registry:$BUILD_NUMBER"
@@ -30,3 +36,9 @@ pipeline {
     }
   }
 }
+
+
+
+
+
+
