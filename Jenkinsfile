@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "https://hub.docker.com/repository/docker/ramanjulur/myrepo"
+    registry = "ramanjulur/myrepo"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
