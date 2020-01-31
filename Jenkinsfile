@@ -15,7 +15,7 @@ pipeline {
                 script {
                     // If you are using Windows then you should use "bat" step
                     sh "docker build -t demoapp:B${BUILD_NUMBER} ."
-                    sh "docker build -t demoapp:test-B${BUILD_NUMBER} -f Dockerfile.Integration"
+                    //sh "docker build -t demoapp:test-B${BUILD_NUMBER} -f Dockerfile.Integration"
                 }
             }
         }
