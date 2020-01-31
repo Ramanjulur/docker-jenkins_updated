@@ -11,6 +11,7 @@ RUN java -version
 
 WORKDIR /opt/tomcat/webapps
 #COPY /var/lib/jenkins/sample.war /opt/tomcat/webapps
+RUN wget https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war
 EXPOSE 8080
 
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
