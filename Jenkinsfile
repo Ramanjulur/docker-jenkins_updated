@@ -25,8 +25,8 @@ pipeline {
     }
 	stage("Deploy to staging") {
      steps {
- 
-          sh "docker run -d --rm -p 8082:8080 --name mycontainer$BUILD_NUMBER ramanjulur/myrepo:$BUILD_NUMBER"
+          echo 'running image'
+          //sh "docker run -d --rm -p 8082:8080 --name mycontainer$BUILD_NUMBER ramanjulur/myrepo:$BUILD_NUMBER"
      }
   }
   stage("compose") {
