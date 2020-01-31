@@ -29,6 +29,12 @@ pipeline {
           sh "docker run -d --rm -p 8082:8080 --name mycontainer$BUILD_NUMBER ramanjulur/myrepo:$BUILD_NUMBER"
      }
   }
+  stage("compose") {
+     steps {
+ 
+          sh "docker-compose up -d"
+     }
+  }
     stage('Remove Unused docker image') {
       steps{
         sh "docker rmi $registry:$BUILD_NUMBER"
@@ -36,9 +42,3 @@ pipeline {
     }
   }
 }
-
-
-
-
-
-
