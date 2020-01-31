@@ -1,31 +1,32 @@
 pipeline {
-    agent any
+  environment {
+    registry = "https://hub.docker.com/repository/docker/ramanjulur/myrepo"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+  agent any
+  stages {
     
-    stages {
-        stage("clone code") {
-            steps {
-                script {
-                    // Let's clone the source
-                    git 'https://github.com/Ramanjulur/docker-jenkins_updated.git';
-                }
-            }
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
-        stage("Build & UnitTest") {
-            steps {
-                script {
-                    // If you are using Windows then you should use "bat" step
-                    sh "docker build -t demoapp:B${BUILD_NUMBER} ."
-                    //sh "docker build -t demoapp:test-B${BUILD_NUMBER} -f Dockerfile.Integration"
-                }
-            }
+      }
+    }
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
         }
-        stage('Integration Test') {
-            steps {
-                sh "docker-compose up -d"
-               // sh "docker-compose -f docker-compose.integration.yml down -v"
-            }
-            
-        }
-                    } 
-                }
-            
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
+  }
+}
