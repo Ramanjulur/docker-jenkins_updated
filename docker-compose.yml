@@ -1,6 +1,0 @@
-version: '3.1'
- 
-services:
-  demoapp${BUILD_NUMBER}:
-    image: "ramanjulur/myrepo:$BUILD_NUMBER"
-  
